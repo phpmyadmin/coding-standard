@@ -1,7 +1,6 @@
-# phpmyadmin-coding-standard
+# phpMyAdmin Coding Standard
 
-phpMyAdmin PHP CodeSniffer Coding Standard
-
+phpMyAdmin Coding Standard for PHP CodeSniffer.
 
 ## Installation & Usage
 
