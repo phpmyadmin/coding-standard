@@ -6,7 +6,7 @@ phpMyAdmin Coding Standard for PHP CodeSniffer.
 
 Before starting using our coding standard install [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer).
 
-Clone or download this repo somewhere on your computer or install it with [Composer](http://getcomposer.org/).
+Clone or download this repo somewhere on your computer or install it with [Composer](https://getcomposer.org/).
 To do so, add the dependency to your `composer.json` file by running `composer require --dev phpmyadmin/coding-standard`.
 
 Add the standards directory to PHP_CodeSniffer installed paths:
