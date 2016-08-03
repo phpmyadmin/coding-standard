@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <ruleset name="phpMyAdmin Standard">
-  <!-- http://pear.php.net/manual/en/package.php.php-codesniffer.annotated-ruleset.php -->
+  <!-- https://pear.php.net/manual/en/package.php.php-codesniffer.annotated-ruleset.php -->
   <description>phpMyAdmin custom coding standard</description>
 
   <rule ref="PSR1" />
