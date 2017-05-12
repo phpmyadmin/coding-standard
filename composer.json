@@ -3,6 +3,7 @@
     "description": "phpMyAdmin PHP CodeSniffer Coding Standard",
     "keywords": ["phpcs", "CodeSniffer", "phpMyAdmin"],
     "license": "MIT",
+    "type": "phpcodesniffer-standard",
     "authors": [
         {
             "name": "The phpMyAdmin Team",
