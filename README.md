@@ -49,8 +49,7 @@ $ phpcs --config-set default_standard PMAStandard
 ## Using
 
 PMAStandard has its tuned coding style checks, such as missing `@author`,
-`@copyright`, `@link` or other tags. Let's take a look at the same example as
-above, but now checked with PMAStandard:
+`@copyright`, `@link` or other tags. Let's take a look at an example, checked with PMAStandard:
 
 ```sh
 $ phpcs --standard=PMAStandard /path/to/code/myfile.php
