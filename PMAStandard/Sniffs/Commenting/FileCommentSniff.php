@@ -12,6 +12,11 @@
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  */
+namespace PMAStandard\Sniffs\Commenting;
+
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
+use PHP_CodeSniffer\Util\Common;
 
 /**
  * Parses and verifies the doc comments for files.
@@ -26,9 +31,8 @@
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  */
 
-class PMAStandard_Sniffs_Commenting_FileCommentSniff implements PHP_CodeSniffer_Sniff
+class FileCommentSniff implements Sniff
 {
-
     /**
      * Tags in correct order and related info.
      *
@@ -81,7 +85,6 @@ class PMAStandard_Sniffs_Commenting_FileCommentSniff implements PHP_CodeSniffer_
                                         ),
                       );
 
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -90,20 +93,18 @@ class PMAStandard_Sniffs_Commenting_FileCommentSniff implements PHP_CodeSniffer_
     public function register()
     {
         return array(T_OPEN_TAG);
-
     }//end register()
-
 
     /**
      * Processes this test, when one of its tokens is encountered.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int                  $stackPtr  The position of the current token
-     *                                        in the stack passed in $tokens.
+     * @param File $phpcsFile The file being scanned.
+     * @param int  $stackPtr  The position of the current token
+     *                        in the stack passed in $tokens.
      *
      * @return int
      */
-    public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -156,21 +157,19 @@ class PMAStandard_Sniffs_Commenting_FileCommentSniff implements PHP_CodeSniffer_
 
         // Ignore the rest of the file.
         return ($phpcsFile->numTokens + 1);
-
     }//end process()
-
 
     /**
      * Processes each required or optional tag.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile    The file being scanned.
-     * @param int                  $stackPtr     The position of the current token
-     *                                           in the stack passed in $tokens.
-     * @param int                  $commentStart Position in the stack where the comment started.
+     * @param File $phpcsFile    The file being scanned.
+     * @param int  $stackPtr     The position of the current token
+     *                           in the stack passed in $tokens.
+     * @param int  $commentStart Position in the stack where the comment started.
      *
      * @return void
      */
-    protected function processTags(PHP_CodeSniffer_File $phpcsFile, $stackPtr, $commentStart)
+    protected function processTags(File $phpcsFile, $stackPtr, $commentStart)
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -255,19 +254,17 @@ class PMAStandard_Sniffs_Commenting_FileCommentSniff implements PHP_CodeSniffer_
                 $pos++;
             }
         }//end foreach
-
     }//end processTags()
-
 
     /**
      * Process the category tag.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param array                $tags      The tokens for these tags.
+     * @param File  $phpcsFile The file being scanned.
+     * @param array $tags      The tokens for these tags.
      *
      * @return void
      */
-    protected function processCategory(PHP_CodeSniffer_File $phpcsFile, array $tags)
+    protected function processCategory(File $phpcsFile, array $tags)
     {
         $tokens = $phpcsFile->getTokens();
         foreach ($tags as $tag) {
@@ -277,7 +274,7 @@ class PMAStandard_Sniffs_Commenting_FileCommentSniff implements PHP_CodeSniffer_
             }
 
             $content = $tokens[($tag + 2)]['content'];
-            if (PHP_CodeSniffer::isUnderscoreName($content) !== true) {
+            if (Common::isUnderscoreName($content) !== true) {
                 $newContent = str_replace(' ', '_', $content);
                 $nameBits   = explode('_', $newContent);
                 $firstBit   = array_shift($nameBits);
@@ -297,19 +294,17 @@ class PMAStandard_Sniffs_Commenting_FileCommentSniff implements PHP_CodeSniffer_
                 $phpcsFile->addError($error, $tag, 'InvalidCategory', $data);
             }
         }//end foreach
-
     }//end processCategory()
-
 
     /**
      * Process the package tag.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param array                $tags      The tokens for these tags.
+     * @param File  $phpcsFile The file being scanned.
+     * @param array $tags      The tokens for these tags.
      *
      * @return void
      */
-    protected function processPackage(PHP_CodeSniffer_File $phpcsFile, array $tags)
+    protected function processPackage(File $phpcsFile, array $tags)
     {
         $tokens = $phpcsFile->getTokens();
         foreach ($tags as $tag) {
@@ -319,7 +314,7 @@ class PMAStandard_Sniffs_Commenting_FileCommentSniff implements PHP_CodeSniffer_
             }
 
             $content = $tokens[($tag + 2)]['content'];
-            if (PHP_CodeSniffer::isUnderscoreName($content) === true) {
+            if (Common::isUnderscoreName($content) === true) {
                 continue;
             }
 
@@ -343,19 +338,17 @@ class PMAStandard_Sniffs_Commenting_FileCommentSniff implements PHP_CodeSniffer_
                          );
             $phpcsFile->addError($error, $tag, 'InvalidPackage', $data);
         }//end foreach
-
     }//end processPackage()
-
 
     /**
      * Process the subpackage tag.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param array                $tags      The tokens for these tags.
+     * @param File  $phpcsFile The file being scanned.
+     * @param array $tags      The tokens for these tags.
      *
      * @return void
      */
-    protected function processSubpackage(PHP_CodeSniffer_File $phpcsFile, array $tags)
+    protected function processSubpackage(File $phpcsFile, array $tags)
     {
         $tokens = $phpcsFile->getTokens();
         foreach ($tags as $tag) {
@@ -365,7 +358,7 @@ class PMAStandard_Sniffs_Commenting_FileCommentSniff implements PHP_CodeSniffer_
             }
 
             $content = $tokens[($tag + 2)]['content'];
-            if (PHP_CodeSniffer::isUnderscoreName($content) === true) {
+            if (Common::isUnderscoreName($content) === true) {
                 continue;
             }
 
@@ -387,19 +380,17 @@ class PMAStandard_Sniffs_Commenting_FileCommentSniff implements PHP_CodeSniffer_
                          );
             $phpcsFile->addError($error, $tag, 'InvalidSubpackage', $data);
         }//end foreach
-
     }//end processSubpackage()
-
 
     /**
      * Process the author tag(s) that this header comment has.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param array                $tags      The tokens for these tags.
+     * @param File  $phpcsFile The file being scanned.
+     * @param array $tags      The tokens for these tags.
      *
      * @return void
      */
-    protected function processAuthor(PHP_CodeSniffer_File $phpcsFile, array $tags)
+    protected function processAuthor(File $phpcsFile, array $tags)
     {
         $tokens = $phpcsFile->getTokens();
         foreach ($tags as $tag) {
@@ -417,19 +408,17 @@ class PMAStandard_Sniffs_Commenting_FileCommentSniff implements PHP_CodeSniffer_
                 $phpcsFile->addError($error, $tag, 'InvalidAuthors');
             }
         }
-
     }//end processAuthor()
-
 
     /**
      * Process the copyright tags.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param array                $tags      The tokens for these tags.
+     * @param File  $phpcsFile The file being scanned.
+     * @param array $tags      The tokens for these tags.
      *
      * @return void
      */
-    protected function processCopyright(PHP_CodeSniffer_File $phpcsFile, array $tags)
+    protected function processCopyright(File $phpcsFile, array $tags)
     {
         $tokens = $phpcsFile->getTokens();
         foreach ($tags as $tag) {
@@ -458,19 +447,17 @@ class PMAStandard_Sniffs_Commenting_FileCommentSniff implements PHP_CodeSniffer_
                 $phpcsFile->addError($error, $tag, 'IncompleteCopyright');
             }
         }//end foreach
-
     }//end processCopyright()
-
 
     /**
      * Process the license tag.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param array                $tags      The tokens for these tags.
+     * @param File  $phpcsFile The file being scanned.
+     * @param array $tags      The tokens for these tags.
      *
      * @return void
      */
-    protected function processLicense(PHP_CodeSniffer_File $phpcsFile, array $tags)
+    protected function processLicense(File $phpcsFile, array $tags)
     {
         $tokens = $phpcsFile->getTokens();
         foreach ($tags as $tag) {
@@ -487,19 +474,17 @@ class PMAStandard_Sniffs_Commenting_FileCommentSniff implements PHP_CodeSniffer_
                 $phpcsFile->addError($error, $tag, 'IncompleteLicense');
             }
         }
-
     }//end processLicense()
-
 
     /**
      * Process the version tag.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param array                $tags      The tokens for these tags.
+     * @param File  $phpcsFile The file being scanned.
+     * @param array $tags      The tokens for these tags.
      *
      * @return void
      */
-    protected function processVersion(PHP_CodeSniffer_File $phpcsFile, array $tags)
+    protected function processVersion(File $phpcsFile, array $tags)
     {
         $tokens = $phpcsFile->getTokens();
         foreach ($tags as $tag) {
@@ -519,8 +504,5 @@ class PMAStandard_Sniffs_Commenting_FileCommentSniff implements PHP_CodeSniffer_
                 $phpcsFile->addWarning($error, $tag, 'InvalidVersion', $data);
             }
         }
-
     }//end processVersion()
-
-
 }//end class

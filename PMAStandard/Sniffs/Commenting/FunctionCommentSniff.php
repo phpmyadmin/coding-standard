@@ -12,6 +12,11 @@
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  */
+namespace PMAStandard\Sniffs\Commenting;
+
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
+use PHP_CodeSniffer\Util\Tokens;
 
 /**
  * Parses and verifies the doc comments for functions.
@@ -25,10 +30,8 @@
  * @version   Release: 2.2.0
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  */
-class PMAStandard_Sniffs_Commenting_FunctionCommentSniff implements PHP_CodeSniffer_Sniff
+class FunctionCommentSniff implements Sniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -37,23 +40,22 @@ class PMAStandard_Sniffs_Commenting_FunctionCommentSniff implements PHP_CodeSnif
     public function register()
     {
         return array(T_FUNCTION);
-
     }//end register()
 
 
     /**
      * Processes this test, when one of its tokens is encountered.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int                  $stackPtr  The position of the current token
-     *                                        in the stack passed in $tokens.
+     * @param File $phpcsFile The file being scanned.
+     * @param int  $stackPtr  The position of the current token
+     *                        in the stack passed in $tokens.
      *
      * @return void
      */
-    public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
-        $find   = PHP_CodeSniffer_Tokens::$methodPrefixes;
+        $find   = Tokens::$methodPrefixes;
         $find[] = T_WHITESPACE;
 
         $commentEnd = $phpcsFile->findPrevious($find, ($stackPtr - 1), null, true);
@@ -103,21 +105,19 @@ class PMAStandard_Sniffs_Commenting_FunctionCommentSniff implements PHP_CodeSnif
         $this->processReturn($phpcsFile, $stackPtr, $commentStart);
         $this->processThrows($phpcsFile, $stackPtr, $commentStart);
         $this->processParams($phpcsFile, $stackPtr, $commentStart);
-
     }//end process()
-
 
     /**
      * Process the return comment of this function comment.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile    The file being scanned.
-     * @param int                  $stackPtr     The position of the current token
-     *                                           in the stack passed in $tokens.
-     * @param int                  $commentStart The position in the stack where the comment started.
+     * @param File $phpcsFile    The file being scanned.
+     * @param int  $stackPtr     The position of the current token
+     *                           in the stack passed in $tokens.
+     * @param int  $commentStart The position in the stack where the comment started.
      *
      * @return void
      */
-    protected function processReturn(PHP_CodeSniffer_File $phpcsFile, $stackPtr, $commentStart)
+    protected function processReturn(File $phpcsFile, $stackPtr, $commentStart)
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -152,21 +152,19 @@ class PMAStandard_Sniffs_Commenting_FunctionCommentSniff implements PHP_CodeSnif
             $error = 'Missing @return tag in function comment';
             $phpcsFile->addError($error, $tokens[$commentStart]['comment_closer'], 'MissingReturn');
         }//end if
-
     }//end processReturn()
-
 
     /**
      * Process any throw tags that this function comment has.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile    The file being scanned.
-     * @param int                  $stackPtr     The position of the current token
-     *                                           in the stack passed in $tokens.
-     * @param int                  $commentStart The position in the stack where the comment started.
+     * @param File $phpcsFile    The file being scanned.
+     * @param int  $stackPtr     The position of the current token
+     *                           in the stack passed in $tokens.
+     * @param int  $commentStart The position in the stack where the comment started.
      *
      * @return void
      */
-    protected function processThrows(PHP_CodeSniffer_File $phpcsFile, $stackPtr, $commentStart)
+    protected function processThrows(File $phpcsFile, $stackPtr, $commentStart)
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -192,21 +190,19 @@ class PMAStandard_Sniffs_Commenting_FunctionCommentSniff implements PHP_CodeSnif
                 $phpcsFile->addError($error, $tag, 'InvalidThrows');
             }
         }//end foreach
-
     }//end processThrows()
-
 
     /**
      * Process the function parameter comments.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile    The file being scanned.
-     * @param int                  $stackPtr     The position of the current token
-     *                                           in the stack passed in $tokens.
-     * @param int                  $commentStart The position in the stack where the comment started.
+     * @param File $phpcsFile    The file being scanned.
+     * @param int  $stackPtr     The position of the current token
+     *                           in the stack passed in $tokens.
+     * @param int  $commentStart The position in the stack where the comment started.
      *
      * @return void
      */
-    protected function processParams(PHP_CodeSniffer_File $phpcsFile, $stackPtr, $commentStart)
+    protected function processParams(File $phpcsFile, $stackPtr, $commentStart)
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -377,8 +373,5 @@ class PMAStandard_Sniffs_Commenting_FunctionCommentSniff implements PHP_CodeSnif
             $data  = array($neededParam);
             $phpcsFile->addError($error, $commentStart, 'MissingParamTag', $data);
         }
-
     }//end processParams()
-
-
 }//end class
