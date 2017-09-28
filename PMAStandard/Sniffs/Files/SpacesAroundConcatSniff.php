@@ -14,8 +14,11 @@
  * @package  PHP_CodeSniffer
  * @since    September, the 12th 2013
  */
+namespace PMAStandard\Sniffs\Files;
 
-/// {{{ PMAStandard_Sniffs_Files_SpacesAroundConcatSniff
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Sniffs\Sniff;
+
 /**
  * Sniff to oblige whitespaces before and after a concatenation operator
  *
@@ -24,41 +27,34 @@
  * @name     SpacesAroundConcatSniff
  * @version  Release: 1.0
  */
-class PMAStandard_Sniffs_Files_SpacesAroundConcatSniff implements PHP_CodeSniffer_Sniff
+class SpacesAroundConcatSniff implements Sniff
 {
-
-    // {{{ register()
-
     /**
      * Returns the token types that this sniff is interested in.
      *
      * @name register
      * @access public
-     * @see PHP_CodeSniffer_Sniff::register()
+     * @see PHP_CodeSniffer\Sniffs\Sniff::register()
      *
      * @return array(int)
      */
     public function register()
     {
         return array(T_STRING_CONCAT);
-
     }//end register()
-
-    // }}}
-    // {{{ process()
 
     /**
      * Processes the tokens that this sniff is interested in.
      *
      * @name process
      * @access public
-     * @see PHP_CodeSniffer_Sniff::process()
-     * @param PHP_CodeSniffer_File $phpcsFile The file where the token was found.
-     * @param int                  $stackPtr  The position in the stack where the token was found.
+     * @see PHP_CodeSniffer\Sniffs\Sniff::process()
+     * @param File $phpcsFile The file where the token was found.
+     * @param int  $stackPtr  The position in the stack where the token was found.
      *
      * @return void
      */
-    public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $tokens = $phpcsFile->getTokens();
         if ($tokens[$stackPtr-1]['type'] !== 'T_WHITESPACE') {
@@ -70,9 +66,4 @@ class PMAStandard_Sniffs_Files_SpacesAroundConcatSniff implements PHP_CodeSniffe
             $phpcsFile->addWarning($warning, $stackPtr, 'Found');
         }
     }//end process()
-
-    // }}}
-
 }//end class
-
-// }}}

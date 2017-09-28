@@ -12,6 +12,10 @@
  * @license   https://github.com/squizlabs/PHP_CodeSniffer/blob/master/licence.txt BSD Licence
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  */
+namespace PMAStandard\Sniffs\Commenting;
+
+use PHP_CodeSniffer\Files\File;
+use PHP_CodeSniffer\Util\Tokens;
 
 /**
  * Parses and verifies the doc comments for classes.
@@ -25,10 +29,8 @@
  * @version   Release: 2.2.0
  * @link      http://pear.php.net/package/PHP_CodeSniffer
  */
-class PMAStandard_Sniffs_Commenting_ClassCommentSniff extends PMAStandard_Sniffs_Commenting_FileCommentSniff
+class ClassCommentSniff extends FileCommentSniff
 {
-
-
     /**
      * Returns an array of tokens this test wants to listen for.
      *
@@ -43,17 +45,16 @@ class PMAStandard_Sniffs_Commenting_ClassCommentSniff extends PMAStandard_Sniffs
 
     }//end register()
 
-
     /**
      * Processes this test, when one of its tokens is encountered.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param int                  $stackPtr  The position of the current token
-     *                                        in the stack passed in $tokens.
+     * @param File $phpcsFile The file being scanned.
+     * @param int  $stackPtr  The position of the current token
+     *                        in the stack passed in $tokens.
      *
      * @return void
      */
-    public function process(PHP_CodeSniffer_File $phpcsFile, $stackPtr)
+    public function process(File $phpcsFile, $stackPtr)
     {
         $this->currentFile = $phpcsFile;
 
@@ -61,7 +62,7 @@ class PMAStandard_Sniffs_Commenting_ClassCommentSniff extends PMAStandard_Sniffs
         $type      = strtolower($tokens[$stackPtr]['content']);
         $errorData = array($type);
 
-        $find   = PHP_CodeSniffer_Tokens::$methodPrefixes;
+        $find   = Tokens::$methodPrefixes;
         $find[] = T_WHITESPACE;
 
         $commentEnd = $phpcsFile->findPrevious($find, ($stackPtr - 1), null, true);
@@ -105,16 +106,15 @@ class PMAStandard_Sniffs_Commenting_ClassCommentSniff extends PMAStandard_Sniffs
 
     }//end process()
 
-
     /**
      * Process the version tag.
      *
-     * @param PHP_CodeSniffer_File $phpcsFile The file being scanned.
-     * @param array                $tags      The tokens for these tags.
+     * @param File  $phpcsFile The file being scanned.
+     * @param array $tags      The tokens for these tags.
      *
      * @return void
      */
-    protected function processVersion(PHP_CodeSniffer_File $phpcsFile, array $tags)
+    protected function processVersion(File $phpcsFile, array $tags)
     {
         $tokens = $phpcsFile->getTokens();
         foreach ($tags as $tag) {
@@ -130,8 +130,5 @@ class PMAStandard_Sniffs_Commenting_ClassCommentSniff extends PMAStandard_Sniffs
                 $phpcsFile->addWarning($error, $tag, 'InvalidVersion', $data);
             }
         }
-
     }//end processVersion()
-
-
 }//end class
