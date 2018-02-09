@@ -1,10 +1,38 @@
 <?xml version="1.0"?>
-<ruleset name="phpMyAdmin Standard">
-  <!-- https://pear.php.net/manual/en/package.php.php-codesniffer.annotated-ruleset.php -->
-  <description>phpMyAdmin custom coding standard</description>
+<ruleset name="phpMyAdmin Standard" namespace="PMAStandard">
+    <!-- https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml -->
+    <description>phpMyAdmin PHP_CodeSniffer custom coding standard</description>
 
-  <rule ref="PSR1" />
-  <rule ref="Generic.Metrics.NestingLevel" />
-  <!-- There MUST NOT be trailing whitespace at the end of lines. -->
-  <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace" />
+    <!-- The PSR-2 coding standard -->
+    <rule ref="PSR2" />
+
+    <!-- Short array syntax must be used to define arrays -->
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax" />
+
+    <!-- Functions should not have a nesting level greater than 10, and should try to stay below 5 -->
+    <rule ref="Generic.Metrics.NestingLevel" />
+
+    <!-- Files, classes and functions must have a non-empty doc comment -->
+    <rule ref="PEAR.Commenting.ClassComment">
+        <exclude name="PEAR.Commenting.ClassComment.MissingCategoryTag" />
+        <exclude name="PEAR.Commenting.ClassComment.MissingAuthorTag" />
+        <exclude name="PEAR.Commenting.ClassComment.MissingLicenseTag" />
+        <exclude name="PEAR.Commenting.ClassComment.MissingLinkTag" />
+    </rule>
+    <rule ref="PEAR.Commenting.FileComment">
+        <exclude name="PEAR.Commenting.FileComment.MissingCategoryTag" />
+        <exclude name="PEAR.Commenting.FileComment.MissingAuthorTag" />
+        <exclude name="PEAR.Commenting.FileComment.MissingLicenseTag" />
+        <exclude name="PEAR.Commenting.FileComment.MissingLinkTag" />
+        <exclude name="PEAR.Commenting.FileComment.MissingVersion" />
+    </rule>
+    <rule ref="PEAR.Commenting.FunctionComment" />
+
+    <!-- Makes sure there is only one space before and after the concatenation operator -->
+    <rule ref="Squiz.Strings.ConcatenationSpacing">
+        <properties>
+            <property name="spacing" value="1" />
+            <property name="ignoreNewlines" value="true" />
+        </properties>
+    </rule>
 </ruleset>

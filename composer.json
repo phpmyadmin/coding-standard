@@ -1,6 +1,6 @@
 {
     "name": "phpmyadmin/coding-standard",
-    "description": "phpMyAdmin PHP CodeSniffer Coding Standard",
+    "description": "phpMyAdmin PHP_CodeSniffer Coding Standard",
     "keywords": ["phpcs", "CodeSniffer", "phpMyAdmin"],
     "license": "MIT",
     "type": "phpcodesniffer-standard",
