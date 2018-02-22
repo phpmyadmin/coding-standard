@@ -35,4 +35,9 @@
             <property name="ignoreNewlines" value="true" />
         </properties>
     </rule>
+
+    <!-- Variable names should be camelCased with the first letter lowercase. -->
+    <rule ref="Zend.NamingConventions.ValidVariableName">
+        <exclude name="Zend.NamingConventions.ValidVariableName.PrivateNoUnderscore" />
+    </rule>
 </ruleset>
