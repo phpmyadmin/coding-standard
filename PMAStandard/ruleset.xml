@@ -1,43 +1,76 @@
 <?xml version="1.0"?>
-<ruleset name="phpMyAdmin Standard" namespace="PMAStandard">
-    <!-- https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml -->
-    <description>phpMyAdmin PHP_CodeSniffer custom coding standard</description>
+<ruleset
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    name="phpMyAdmin"
+    namespace="PMAStandard"
+    xsi:noNamespaceSchemaLocation="../vendor/squizlabs/php_codesniffer/phpcs.xsd"
+>
+    <description>The phpMyAdmin coding standard.</description>
 
     <!-- The PSR-2 coding standard -->
-    <rule ref="PSR2" />
+    <rule ref="PSR2"/>
 
     <!-- Short array syntax must be used to define arrays -->
-    <rule ref="Generic.Arrays.DisallowLongArraySyntax" />
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+    <!-- Ensures that array are indented with 4 spaces -->
+    <rule ref="Generic.Arrays.ArrayIndent"/>
 
     <!-- Functions should not have a nesting level greater than 10, and should try to stay below 5 -->
-    <rule ref="Generic.Metrics.NestingLevel" />
+    <rule ref="Generic.Metrics.NestingLevel"/>
+
+    <!-- Control Structures must have at least one statement inside of the body -->
+    <rule ref="Generic.CodeAnalysis.EmptyStatement"/>
+
+    <!-- Ensures there is a single space after cast -->
+    <rule ref="Generic.Formatting.SpaceAfterCast"/>
+    <!-- Ensures there is a single space after a NOT operator -->
+    <rule ref="Generic.Formatting.SpaceAfterNot"/>
 
     <!-- Files, classes and functions must have a non-empty doc comment -->
     <rule ref="PEAR.Commenting.ClassComment">
-        <exclude name="PEAR.Commenting.ClassComment.MissingCategoryTag" />
-        <exclude name="PEAR.Commenting.ClassComment.MissingAuthorTag" />
-        <exclude name="PEAR.Commenting.ClassComment.MissingLicenseTag" />
-        <exclude name="PEAR.Commenting.ClassComment.MissingLinkTag" />
+        <exclude name="PEAR.Commenting.ClassComment.MissingCategoryTag"/>
+        <exclude name="PEAR.Commenting.ClassComment.MissingAuthorTag"/>
+        <exclude name="PEAR.Commenting.ClassComment.MissingLicenseTag"/>
+        <exclude name="PEAR.Commenting.ClassComment.MissingLinkTag"/>
     </rule>
     <rule ref="PEAR.Commenting.FileComment">
-        <exclude name="PEAR.Commenting.FileComment.MissingCategoryTag" />
-        <exclude name="PEAR.Commenting.FileComment.MissingAuthorTag" />
-        <exclude name="PEAR.Commenting.FileComment.MissingLicenseTag" />
-        <exclude name="PEAR.Commenting.FileComment.MissingLinkTag" />
-        <exclude name="PEAR.Commenting.FileComment.MissingVersion" />
+        <exclude name="PEAR.Commenting.FileComment.MissingCategoryTag"/>
+        <exclude name="PEAR.Commenting.FileComment.MissingAuthorTag"/>
+        <exclude name="PEAR.Commenting.FileComment.MissingLicenseTag"/>
+        <exclude name="PEAR.Commenting.FileComment.MissingLinkTag"/>
+        <exclude name="PEAR.Commenting.FileComment.MissingVersion"/>
     </rule>
-    <rule ref="PEAR.Commenting.FunctionComment" />
+    <rule ref="PEAR.Commenting.FunctionComment"/>
+    <!-- Checks that no Perl-style # comments are used -->
+    <rule ref="PEAR.Commenting.InlineComment"/>
+
+    <!-- Ensure that there are no spaces around square brackets -->
+    <rule ref="Squiz.Arrays.ArrayBracketSpacing"/>
+    <!-- Ensures that arrays conform to the array coding standard -->
+    <rule ref="Squiz.Arrays.ArrayDeclaration">
+        <exclude name="Squiz.Arrays.ArrayDeclaration.DoubleArrowNotAligned"/>
+        <exclude name="Squiz.Arrays.ArrayDeclaration.KeyNotAligned"/>
+        <exclude name="Squiz.Arrays.ArrayDeclaration.MultiLineNotAllowed"/>
+        <exclude name="Squiz.Arrays.ArrayDeclaration.CloseBraceNotAligned"/>
+        <exclude name="Squiz.Arrays.ArrayDeclaration.ValueNotAligned"/>
+    </rule>
+
+    <!-- Tests that the stars in a doc comment align correctly -->
+    <rule ref="Squiz.Commenting.DocCommentAlignment"/>
 
     <!-- Makes sure there is only one space before and after the concatenation operator -->
     <rule ref="Squiz.Strings.ConcatenationSpacing">
         <properties>
-            <property name="spacing" value="1" />
-            <property name="ignoreNewlines" value="true" />
+            <property name="spacing" value="1"/>
+            <property name="ignoreNewlines" value="true"/>
         </properties>
     </rule>
 
     <!-- Variable names should be camelCased with the first letter lowercase. -->
-    <rule ref="Zend.NamingConventions.ValidVariableName">
-        <exclude name="Zend.NamingConventions.ValidVariableName.PrivateNoUnderscore" />
+    <rule ref="Squiz.NamingConventions.ValidVariableName">
+        <!-- Checked by PSR2 -->
+        <exclude name="Squiz.NamingConventions.ValidVariableName.PrivateNoUnderscore"/>
+        <exclude name="Squiz.NamingConventions.ValidVariableName.PublicHasUnderscore"/>
+        <type>warning</type>
     </rule>
 </ruleset>
