@@ -2,7 +2,7 @@
 <ruleset
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     name="phpMyAdmin"
-    namespace="PMAStandard"
+    namespace="PhpMyAdmin"
     xsi:noNamespaceSchemaLocation="../vendor/squizlabs/php_codesniffer/phpcs.xsd"
 >
     <description>The phpMyAdmin coding standard.</description>
