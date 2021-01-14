@@ -1,0 +1,32 @@
+name: Test standard
+
+on:
+  push:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - master
+
+jobs:
+    test-ruleset:
+        name: Test on php ${{ matrix.php-version }} and ${{ matrix.os }}
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                php-version: ["7.1", "7.2", "7.3", "7.4", "8.0"]
+                os: [ubuntu-latest]
+        steps:
+            - uses: actions/checkout@v1
+            - name: Use php ${{ matrix.php-version }}
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php-version }}
+            - name: Cache module
+              uses: actions/cache@v2
+              with:
+                  path: ~/.composer/cache/
+                  key: composer-cache
+            - name: Install dependencies
+              run: composer install
+            - name: Run php tests
+              run: ./vendor/bin/phpcs --standard=PhpMyAdmin -vv | grep -oF "Processing ruleset $(pwd)/PhpMyAdmin/ruleset.xml"
