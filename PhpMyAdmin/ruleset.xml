@@ -2,13 +2,8 @@
 <ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="phpMyAdmin coding standard" xsi:noNamespaceSchemaLocation="../vendor/squizlabs/php_codesniffer/phpcs.xsd">
     <description>The phpMyAdmin coding standard.</description>
 
+    <!-- Import Doctrine coding standard (base) -->
     <rule ref="Doctrine">
-        <!-- Do not add a space before the return type colon -->
-        <!-- See SlevomatCodingStandard.TypeHints.ReturnTypeHintSpacing -->
-        <properties>
-            <property name="spacesCountBeforeColon" value="0"/>
-        </properties>
-
         <!-- Do not require multiple assignment alignment -->
         <exclude name="Generic.Formatting.MultipleStatementAlignment"/>
 
@@ -21,32 +16,28 @@
         <exclude name="SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming"/>
         <exclude name="SlevomatCodingStandard.Classes.SuperfluousTraitNaming"/>
 
-        <!-- Exclude some new rules until we decide we adopt them -->
-        <exclude name="SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing.IncorrectLinesCountAfterControlStructure"/>
-        <exclude name="SlevomatCodingStandard.Namespaces.UseSpacing.IncorrectLinesCountBetweenDifferentTypeOfUse"/>
-        <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint"/>
-        <exclude name="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint"/>
-        <exclude name="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint"/>
-        <exclude name="Squiz.NamingConventions.ValidVariableName.NotCamelCaps"/>
-        <exclude name="Squiz.NamingConventions.ValidVariableName.MemberNotCamelCaps"/>
-        <exclude name="SlevomatCodingStandard.PHP.RequireExplicitAssertion.RequiredExplicitAssertion"/>
-        <exclude name="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses.IncorrectlyOrderedUses"/>
-        <exclude name="PSR12.ControlStructures.ControlStructureSpacing.FirstExpressionLine"/>
-        <exclude name="PSR12.ControlStructures.ControlStructureSpacing.CloseParenthesisLine"/>
-        <exclude name="SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing.IncorrectLinesCountAfterLastControlStructure"/>
-        <exclude name="SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing.IncorrectLinesCountAfterLastControlStructure"/>
-        <exclude name="PSR12.ControlStructures.ControlStructureSpacing.LineIndent"/>
-        <exclude name="SlevomatCodingStandard.ControlStructures.RequireNullCoalesceEqualOperator.RequiredNullCoalesceEqualOperator"/>
-        <exclude name="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration.MissingVariable"/>
-        <exclude name="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration.NoAssignment"/>
+        <!-- Do not replace /* @var type $foo */ and similar simple inline annotations with assert() -->
+        <exclude name="SlevomatCodingStandard.PHP.RequireExplicitAssertion"/>
     </rule>
-    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingTraversableTypeHintSpecification">
-        <severity>4</severity>
+
+    <!-- Disable modern class name reference on objects (PHP 8.0+) -->
+    <rule ref="SlevomatCodingStandard.Classes.ModernClassNameReference">
+        <properties>
+            <property name="enableOnObjects" value="false"/>
+        </properties>
     </rule>
-    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingTraversableTypeHintSpecification">
-        <severity>4</severity>
+
+    <!-- Do not require usage of null coalesce operator equal operator (PHP 7.4+) -->
+    <rule ref="SlevomatCodingStandard.ControlStructures.RequireNullCoalesceEqualOperator">
+        <properties>
+            <property name="enable" value="false"/>
+        </properties>
     </rule>
-    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingTraversableTypeHintSpecification">
-        <severity>4</severity>
+
+    <!-- Disable native type hints for properties (PHP 7.4+) -->
+    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint">
+        <properties>
+            <property name="enableNativeTypeHint" value="false"/>
+        </properties>
     </rule>
 </ruleset>
