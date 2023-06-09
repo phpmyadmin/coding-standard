@@ -16,4 +16,20 @@
         <!-- Do not replace /* @var type $foo */ and similar simple inline annotations with assert() -->
         <exclude name="SlevomatCodingStandard.PHP.RequireExplicitAssertion"/>
     </rule>
+
+    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint">
+        <properties>
+            <property name="enableStandaloneNullTrueFalseTypeHints" value="false"/>
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint">
+        <properties>
+            <property name="enableStandaloneNullTrueFalseTypeHints" value="false"/>
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint">
+        <properties>
+            <property name="enableStandaloneNullTrueFalseTypeHints" value="false"/>
+        </properties>
+    </rule>
 </ruleset>
