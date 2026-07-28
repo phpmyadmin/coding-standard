@@ -7,9 +7,6 @@
         <!-- Do not require multiple assignment alignment -->
         <exclude name="Generic.Formatting.MultipleStatementAlignment"/>
 
-        <!-- Allow the 'global' keyword -->
-        <exclude name="Squiz.PHP.GlobalKeyword"/>
-
         <!-- Disable the superfluous class naming rules -->
         <exclude name="SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming"/>
         <exclude name="SlevomatCodingStandard.Classes.SuperfluousExceptionNaming"/>
@@ -18,6 +15,24 @@
 
         <!-- Do not replace /* @var type $foo */ and similar simple inline annotations with assert() -->
         <exclude name="SlevomatCodingStandard.PHP.RequireExplicitAssertion"/>
+
+        <!-- Checked by Generic.WhiteSpace.LanguageConstructSpacing -->
+        <exclude name="Squiz.WhiteSpace.LanguageConstructSpacing"/>
+    </rule>
+
+    <rule ref="Generic.WhiteSpace.LanguageConstructSpacing"/>
+
+    <!-- Enforces conditions to be on a single line when it fit on the line. -->
+    <rule ref="SlevomatCodingStandard.ControlStructures.RequireSingleLineCondition"/>
+
+    <!-- Enforces function call to be on a single line when it fits on the line. -->
+    <rule ref="SlevomatCodingStandard.Functions.RequireSingleLineCall"/>
+
+    <!-- Checks duplicate spaces. -->
+    <rule ref="SlevomatCodingStandard.Whitespaces.DuplicateSpaces">
+        <properties>
+            <property name="ignoreSpacesInComment" value="true"/>
+        </properties>
     </rule>
 
     <!-- Disable modern class name reference on objects (PHP 8.0+) -->
@@ -27,17 +42,82 @@
         </properties>
     </rule>
 
-    <!-- Do not require usage of null coalesce operator equal operator (PHP 7.4+) -->
+    <!-- Disable usage of constructor property promotion (PHP 8.0+) -->
+    <rule ref="SlevomatCodingStandard.Classes.RequireConstructorPropertyPromotion">
+        <properties>
+            <property name="enable" value="false"/>
+        </properties>
+    </rule>
+
+    <!-- Disable usage of null coalesce operator equal operator (PHP 7.4+) -->
     <rule ref="SlevomatCodingStandard.ControlStructures.RequireNullCoalesceEqualOperator">
         <properties>
             <property name="enable" value="false"/>
         </properties>
     </rule>
 
-    <!-- Disable native type hints for properties (PHP 7.4+) -->
+    <!-- Disable usage of null safe operator when possible (PHP 8.0+) -->
+    <rule ref="SlevomatCodingStandard.ControlStructures.RequireNullSafeObjectOperator">
+        <properties>
+            <property name="enable" value="false"/>
+        </properties>
+    </rule>
+
+    <!-- Disable non-capturing catch when the variable with exception is not used (PHP 8.0+) -->
+    <rule ref="SlevomatCodingStandard.Exceptions.RequireNonCapturingCatch">
+        <properties>
+            <property name="enable" value="false"/>
+        </properties>
+    </rule>
+
+    <!-- Disable trailing commas in multiline function calls (PHP 7.3+) -->
+    <rule ref="SlevomatCodingStandard.Functions.RequireTrailingCommaInCall">
+        <properties>
+            <property name="enable" value="false"/>
+        </properties>
+    </rule>
+
+    <!-- Disable trailing commas in multiline function declarations (PHP 8.0+) -->
+    <rule ref="SlevomatCodingStandard.Functions.RequireTrailingCommaInDeclaration">
+        <properties>
+            <property name="enable" value="false"/>
+        </properties>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint">
+        <properties>
+            <property name="enableMixedTypeHint" value="false"/><!-- PHP 8.0+ -->
+            <property name="enableUnionTypeHint" value="false"/><!-- PHP 8.0+ -->
+            <property name="enableIntersectionTypeHint" value="false"/><!-- PHP 8.1+ -->
+            <property name="enableStandaloneNullTrueFalseTypeHints" value="false"/><!-- PHP 8.2+ -->
+        </properties>
+    </rule>
+
     <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint">
         <properties>
-            <property name="enableNativeTypeHint" value="false"/>
+            <property name="enableNativeTypeHint" value="false"/><!-- PHP 7.4+ -->
+            <property name="enableMixedTypeHint" value="false"/><!-- PHP 8.0+ -->
+            <property name="enableUnionTypeHint" value="false"/><!-- PHP 8.0+ -->
+            <property name="enableIntersectionTypeHint" value="false"/><!-- PHP 8.1+ -->
+            <property name="enableStandaloneNullTrueFalseTypeHints" value="false"/><!-- PHP 8.2+ -->
+        </properties>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint">
+        <properties>
+            <property name="enableStaticTypeHint" value="false"/><!-- PHP 8.0+ -->
+            <property name="enableMixedTypeHint" value="false"/><!-- PHP 8.0+ -->
+            <property name="enableUnionTypeHint" value="false"/><!-- PHP 8.0+ -->
+            <property name="enableIntersectionTypeHint" value="false"/><!-- PHP 8.1+ -->
+            <property name="enableNeverTypeHint" value="false"/><!-- PHP 8.1+ -->
+            <property name="enableStandaloneNullTrueFalseTypeHints" value="false"/><!-- PHP 8.2+ -->
+        </properties>
+    </rule>
+
+    <!-- Disable union type hint (PHP 8.0+) -->
+    <rule ref="SlevomatCodingStandard.TypeHints.UnionTypeHintFormat">
+        <properties>
+            <property name="enable" value="false"/>
         </properties>
     </rule>
 </ruleset>
