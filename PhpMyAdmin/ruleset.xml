@@ -23,7 +23,11 @@
     <rule ref="Generic.WhiteSpace.LanguageConstructSpacing"/>
 
     <!-- Enforces conditions to be on a single line when it fit on the line. -->
-    <rule ref="SlevomatCodingStandard.ControlStructures.RequireSingleLineCondition"/>
+    <rule ref="SlevomatCodingStandard.ControlStructures.RequireSingleLineCondition">
+        <properties>
+            <property name="alwaysForSimpleConditions" value="false"/>
+        </properties>
+    </rule>
 
     <!-- Enforces function call to be on a single line when it fits on the line. -->
     <rule ref="SlevomatCodingStandard.Functions.RequireSingleLineCall"/>
