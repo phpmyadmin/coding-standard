@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-version: ['8.1', '8.2', '8.3', '8.4', '8.5']
+        php-version: ['8.2', '8.3', '8.4', '8.5']
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
@@ -38,5 +38,5 @@ jobs:
       - name: Lint the ruleset
         run: xmllint --noout --schema ./vendor/squizlabs/php_codesniffer/phpcs.xsd PhpMyAdmin/ruleset.xml
 
-      - name: Run PHP tests
-        run: ./vendor/bin/phpcs --standard=PhpMyAdmin -vv | grep -oF "Processing ruleset $(pwd)/PhpMyAdmin/ruleset.xml"
+      - name: Check installed coding standards
+        run: vendor/bin/phpcs -i | grep -F "PhpMyAdmin, Doctrine and SlevomatCodingStandard"

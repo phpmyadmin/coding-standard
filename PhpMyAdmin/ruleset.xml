@@ -12,24 +12,28 @@
         <exclude name="SlevomatCodingStandard.Classes.SuperfluousExceptionNaming"/>
         <exclude name="SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming"/>
         <exclude name="SlevomatCodingStandard.Classes.SuperfluousTraitNaming"/>
-
-        <!-- Do not replace /* @var type $foo */ and similar simple inline annotations with assert() -->
-        <exclude name="SlevomatCodingStandard.PHP.RequireExplicitAssertion"/>
     </rule>
 
-    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint">
+    <!-- Enforces conditions to be on a single line when it fit on the line. -->
+    <rule ref="SlevomatCodingStandard.ControlStructures.RequireSingleLineCondition">
         <properties>
-            <property name="enableStandaloneNullTrueFalseTypeHints" value="false"/>
+            <property name="alwaysForSimpleConditions" value="false"/>
         </properties>
     </rule>
-    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint">
+
+    <!-- Enforces function call to be on a single line when it fits on the line. -->
+    <rule ref="SlevomatCodingStandard.Functions.RequireSingleLineCall"/>
+
+    <!-- Checks duplicate spaces. -->
+    <rule ref="SlevomatCodingStandard.Whitespaces.DuplicateSpaces">
         <properties>
-            <property name="enableStandaloneNullTrueFalseTypeHints" value="false"/>
+            <property name="ignoreSpacesInComment" value="true"/>
         </properties>
     </rule>
-    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint">
+
+    <rule ref="SlevomatCodingStandard.TypeHints.ClassConstantTypeHint">
         <properties>
-            <property name="enableStandaloneNullTrueFalseTypeHints" value="false"/>
+            <property name="enableNativeTypeHint" value="false"/><!-- PHP 8.3+ -->
         </properties>
     </rule>
 </ruleset>
